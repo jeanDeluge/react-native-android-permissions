@@ -86,3 +86,4 @@ public class AndroidPermissionsModule extends ReactContextBaseJavaModule {
         }
     }
 
+}
