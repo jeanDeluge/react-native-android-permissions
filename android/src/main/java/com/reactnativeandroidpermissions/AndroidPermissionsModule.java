@@ -80,7 +80,10 @@ public class AndroidPermissionsModule extends ReactContextBaseJavaModule {
         promise.resolve(context.checkSelfPermission(permission) == PackageManager.PERMISSION_GRANTED);
     }
 <<<<<<< HEAD
+<<<<<<< HEAD
   
+=======
+>>>>>>> 98c204a (fix: requestPermission)
     @ReactMethod
     public void requestPermission(final String permission, final Promise promise) {
         Context context = getReactApplicationContext().getBaseContext();
@@ -125,8 +128,11 @@ public class AndroidPermissionsModule extends ReactContextBaseJavaModule {
           promise.reject(ERROR_INVALID_ACTIVITY, e);
         }
       }
+<<<<<<< HEAD
 =======
 >>>>>>> ab9e961 (fix: import android.content.pm.PackageManager)
+=======
+>>>>>>> 98c204a (fix: requestPermission)
 
     @ReactMethod
     public void overlaypermission(Promise promise){
@@ -138,6 +144,7 @@ public class AndroidPermissionsModule extends ReactContextBaseJavaModule {
             promise.resolve(true);
         }
     }
+
 
 
 
