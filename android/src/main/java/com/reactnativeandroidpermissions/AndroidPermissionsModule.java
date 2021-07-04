@@ -32,11 +32,6 @@ public class AndroidPermissionsModule extends ReactContextBaseJavaModule {
 
 
 
-    private final ReactApplicationContext reactContext;
-    private final int DRAW_OVER_PERMISSION_REQUEST_CODE = 123;
-    private Promise mPromise;
-    private final String error  = "Permission was not granted";
-
     private final ActivityEventListener mActivityEventListener = new BaseActivityEventListener(){
         @Override
         public void onActivityResult(Activity activity, int requestCode, int resultCode, Intent data){
