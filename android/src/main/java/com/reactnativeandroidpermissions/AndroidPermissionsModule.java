@@ -29,7 +29,6 @@ public class AndroidPermissionsModule extends ReactContextBaseJavaModule {
     private Promise mPromise;
     private final String error  = "Permission was not granted";
 
-
     private final ActivityEventListener mActivityEventListener = new BaseActivityEventListener(){
         @Override
         public void onActivityResult(Activity activity, int requestCode, int resultCode, Intent data){
@@ -46,15 +45,12 @@ public class AndroidPermissionsModule extends ReactContextBaseJavaModule {
             }
         }
     };
-   
+  
     public AndroidPermissionsModule(ReactApplicationContext reactContext) {
         super(reactContext);
         this.reactContext = reactContext;
 
         this.reactContext.addActivityEventListener(mActivityEventListener);
-    }
-
-    private boolean permissionExist(final String permisson){
 
     }
 
@@ -75,6 +71,7 @@ public class AndroidPermissionsModule extends ReactContextBaseJavaModule {
         }
         promise.resolve(context.checkSelfPermission(permission) == PackageManager.PERMISSION_GRANTED);
     }
+  
     @ReactMethod
     public void requestPermission(final String permission, final Promise promise) {
         Context context = getReactApplicationContext().getBaseContext();
@@ -130,8 +127,5 @@ public class AndroidPermissionsModule extends ReactContextBaseJavaModule {
             promise.resolve(true);
         }
     }
-
-
-
 
 }
