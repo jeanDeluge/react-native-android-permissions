@@ -29,6 +29,7 @@ public class AndroidPermissionsModule extends ReactContextBaseJavaModule {
     private Promise mPromise;
     private final String error  = "Permission was not granted";
 
+
     private final ActivityEventListener mActivityEventListener = new BaseActivityEventListener(){
         @Override
         public void onActivityResult(Activity activity, int requestCode, int resultCode, Intent data){
@@ -45,12 +46,20 @@ public class AndroidPermissionsModule extends ReactContextBaseJavaModule {
             }
         }
     };
+<<<<<<< HEAD
   
+=======
+   
+>>>>>>> ab9e961 (fix: import android.content.pm.PackageManager)
     public AndroidPermissionsModule(ReactApplicationContext reactContext) {
         super(reactContext);
         this.reactContext = reactContext;
 
         this.reactContext.addActivityEventListener(mActivityEventListener);
+    }
+
+    private boolean permissionExist(final String permisson){
+
     }
 
     @Override
@@ -70,6 +79,7 @@ public class AndroidPermissionsModule extends ReactContextBaseJavaModule {
         }
         promise.resolve(context.checkSelfPermission(permission) == PackageManager.PERMISSION_GRANTED);
     }
+<<<<<<< HEAD
   
     @ReactMethod
     public void requestPermission(final String permission, final Promise promise) {
@@ -115,6 +125,8 @@ public class AndroidPermissionsModule extends ReactContextBaseJavaModule {
           promise.reject(ERROR_INVALID_ACTIVITY, e);
         }
       }
+=======
+>>>>>>> ab9e961 (fix: import android.content.pm.PackageManager)
 
     @ReactMethod
     public void overlaypermission(Promise promise){
@@ -126,5 +138,7 @@ public class AndroidPermissionsModule extends ReactContextBaseJavaModule {
             promise.resolve(true);
         }
     }
+
+
 
 }
