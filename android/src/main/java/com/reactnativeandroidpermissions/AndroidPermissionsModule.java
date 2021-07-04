@@ -51,7 +51,6 @@ public class AndroidPermissionsModule extends ReactContextBaseJavaModule {
         this.reactContext = reactContext;
 
         this.reactContext.addActivityEventListener(mActivityEventListener);
-
     }
 
     @Override
