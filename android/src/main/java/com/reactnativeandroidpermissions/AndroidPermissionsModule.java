@@ -75,6 +75,50 @@ public class AndroidPermissionsModule extends ReactContextBaseJavaModule {
         }
         promise.resolve(context.checkSelfPermission(permission) == PackageManager.PERMISSION_GRANTED);
     }
+    @ReactMethod
+    public void requestPermission(final String permission, final Promise promise) {
+        Context context = getReactApplicationContext().getBaseContext();
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+          promise.resolve(
+              context.checkPermission(permission, Process.myPid(), Process.myUid())
+                      == PackageManager.PERMISSION_GRANTED
+                  ? GRANTED
+                  : DENIED);
+          return;
+        }
+        if (context.checkSelfPermission(permission) == PackageManager.PERMISSION_GRANTED) {
+          promise.resolve(GRANTED);
+          return;
+        }
+    
+        try {
+          PermissionAwareActivity activity = getPermissionAwareActivity();
+    
+          mCallbacks.put(
+              mRequestCode,
+              new Callback() {
+                @Override
+                public void invoke(Object... args) {
+                  int[] results = (int[]) args[0];
+                  if (results.length > 0 && results[0] == PackageManager.PERMISSION_GRANTED) {
+                    promise.resolve(GRANTED);
+                  } else {
+                    PermissionAwareActivity activity = (PermissionAwareActivity) args[1];
+                    if (activity.shouldShowRequestPermissionRationale(permission)) {
+                      promise.resolve(DENIED);
+                    } else {
+                      promise.resolve(NEVER_ASK_AGAIN);
+                    }
+                  }
+                }
+              });
+    
+          activity.requestPermissions(new String[] {permission}, mRequestCode, this);
+          mRequestCode++;
+        } catch (IllegalStateException e) {
+          promise.reject(ERROR_INVALID_ACTIVITY, e);
+        }
+      }
 
     @ReactMethod
     public void overlaypermission(Promise promise){
@@ -86,6 +130,7 @@ public class AndroidPermissionsModule extends ReactContextBaseJavaModule {
             promise.resolve(true);
         }
     }
+
 
 
 
