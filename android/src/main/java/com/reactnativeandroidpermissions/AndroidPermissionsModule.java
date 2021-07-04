@@ -10,6 +10,7 @@ import android.os.Process;
 import android.content.Context;
 import android.content.pm.PackageManager;
 
+
 import com.facebook.react.bridge.ActivityEventListener;
 import com.facebook.react.bridge.BaseActivityEventListener;
 
@@ -30,6 +31,12 @@ public class AndroidPermissionsModule extends ReactContextBaseJavaModule {
     private final String error  = "Permission was not granted";
 
 
+
+    private final ReactApplicationContext reactContext;
+    private final int DRAW_OVER_PERMISSION_REQUEST_CODE = 123;
+    private Promise mPromise;
+    private final String error  = "Permission was not granted";
+
     private final ActivityEventListener mActivityEventListener = new BaseActivityEventListener(){
         @Override
         public void onActivityResult(Activity activity, int requestCode, int resultCode, Intent data){
@@ -46,15 +53,12 @@ public class AndroidPermissionsModule extends ReactContextBaseJavaModule {
             }
         }
     };
-   
+  
     public AndroidPermissionsModule(ReactApplicationContext reactContext) {
         super(reactContext);
         this.reactContext = reactContext;
 
         this.reactContext.addActivityEventListener(mActivityEventListener);
-    }
-
-    private boolean permissionExist(final String permisson){
 
     }
 
@@ -87,6 +91,3 @@ public class AndroidPermissionsModule extends ReactContextBaseJavaModule {
         }
     }
 
-
-
-}
