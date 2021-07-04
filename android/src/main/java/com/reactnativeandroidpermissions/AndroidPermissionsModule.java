@@ -24,6 +24,7 @@ import com.facebook.react.modules.permissions.PermissionsModule;
 public class AndroidPermissionsModule extends ReactContextBaseJavaModule {
     public static final String NAME = "AndroidPermissions";
     
+  private static final String ERROR_INVALID_ACTIVITY = "E_INVALID_ACTIVITY";
     private final ReactApplicationContext reactContext;
     private final int DRAW_OVER_PERMISSION_REQUEST_CODE = 123;
     private Promise mPromise;
