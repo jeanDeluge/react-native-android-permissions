@@ -28,6 +28,10 @@ public class AndroidPermissionsModule extends ReactContextBaseJavaModule {
     private final int DRAW_OVER_PERMISSION_REQUEST_CODE = 123;
     private Promise mPromise;
     private final String error  = "Permission was not granted";
+    private int mRequestCode = 0;
+    private final String GRANTED = "granted";
+    private final String DENIED = "denied";
+    private final String NEVER_ASK_AGAIN = "never_ask_again";
 
     private final ActivityEventListener mActivityEventListener = new BaseActivityEventListener(){
         @Override
@@ -51,6 +55,9 @@ public class AndroidPermissionsModule extends ReactContextBaseJavaModule {
         this.reactContext = reactContext;
 
         this.reactContext.addActivityEventListener(mActivityEventListener);
+    }
+
+    private boolean permissionExist(final String permisson){
 
     }
 
@@ -127,5 +134,7 @@ public class AndroidPermissionsModule extends ReactContextBaseJavaModule {
             promise.resolve(true);
         }
     }
+
+
 
 }
