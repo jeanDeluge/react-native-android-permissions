@@ -19,6 +19,8 @@ import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.module.annotations.ReactModule;
 import com.facebook.react.modules.permissions.PermissionsModule;
+import com.facebook.react.modules.core.PermissionAwareActivity;
+import com.facebook.react.modules.core.PermissionListener;
 
 @ReactModule(name = AndroidPermissionsModule.NAME)
 public class AndroidPermissionsModule extends ReactContextBaseJavaModule {
