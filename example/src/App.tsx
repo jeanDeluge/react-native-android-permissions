@@ -4,15 +4,15 @@ import { StyleSheet, View, Text } from 'react-native';
 import AndroidPermissions from 'react-native-android-permissions';
 
 export default function App() {
-  const [result, setResult] = React.useState<number | undefined>();
+  //const [result, setResult] = React.useState<number | undefined>();
 
   React.useEffect(() => {
-    AndroidPermissions.multiply(3, 7).then(setResult);
+    AndroidPermissions.overlaypermission();
   }, []);
 
   return (
     <View style={styles.container}>
-      <Text>Result: {result}</Text>
+      <Text>overlaypermission</Text>
     </View>
   );
 }
