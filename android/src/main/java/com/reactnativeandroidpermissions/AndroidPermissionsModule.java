@@ -6,6 +6,10 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.Settings;
+import android.os.Process;
+import android.content.Context;
+import android.content.pm.PackageManager;
+
 
 import com.facebook.react.bridge.ActivityEventListener;
 import com.facebook.react.bridge.BaseActivityEventListener;
@@ -20,6 +24,13 @@ import com.facebook.react.modules.permissions.PermissionsModule;
 @ReactModule(name = AndroidPermissionsModule.NAME)
 public class AndroidPermissionsModule extends ReactContextBaseJavaModule {
     public static final String NAME = "AndroidPermissions";
+    
+    private final ReactApplicationContext reactContext;
+    private final int DRAW_OVER_PERMISSION_REQUEST_CODE = 123;
+    private Promise mPromise;
+    private final String error  = "Permission was not granted";
+
+
 
     private final ReactApplicationContext reactContext;
     private final int DRAW_OVER_PERMISSION_REQUEST_CODE = 123;
@@ -42,18 +53,31 @@ public class AndroidPermissionsModule extends ReactContextBaseJavaModule {
             }
         }
     };
-
+  
     public AndroidPermissionsModule(ReactApplicationContext reactContext) {
         super(reactContext);
         this.reactContext = reactContext;
 
         this.reactContext.addActivityEventListener(mActivityEventListener);
+
     }
 
     @Override
     @NonNull
     public String getName() {
         return NAME;
+    }
+
+    @ReactMethod
+    public void checkPermission(final String permission, final Promise promise) {
+        Context context = getReactApplicationContext().getBaseContext();
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+          promise.resolve(
+              context.checkPermission(permission, Process.myPid(), Process.myUid())
+                  == PackageManager.PERMISSION_GRANTED);
+          return;
+        }
+        promise.resolve(context.checkSelfPermission(permission) == PackageManager.PERMISSION_GRANTED);
     }
 
     @ReactMethod
@@ -67,4 +91,3 @@ public class AndroidPermissionsModule extends ReactContextBaseJavaModule {
         }
     }
 
-}
